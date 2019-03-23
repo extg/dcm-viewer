@@ -5,7 +5,7 @@ import { fabric } from 'fabric'
 import { Grid, Row, Col, Box } from '@smooth-ui/core-sc'
 
 import {colors, fonts, media} from '../theme';
-
+import Thumb from '../Thumb'
 
 const Image = styled.img(
   system({
@@ -91,7 +91,8 @@ class DicomViewer extends Component {
       <Grid color={colors.white} p={1}>
         <Row pt={2}>
           <Col sm={10}>
-            <Image ref={el => this.image = el} src="./mri-scan-of-the-human-brain.jpg" alt=""/>
+            {/*<Image ref={el => this.image = el} src="./mri-scan-of-the-human-brain.jpg" alt=""/>*/}
+            <Thumb ref={el => this.image = el} src="./mri-scan-of-the-human-brain.jpg" alt=""/>
             {/*<Canvas ref={el => this.canvas = el} id='canvas'/>*/}
           </Col>
           <Col sm={2}>

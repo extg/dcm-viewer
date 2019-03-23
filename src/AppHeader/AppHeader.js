@@ -27,7 +27,7 @@ const AppHeader = ({location}) => (
               marginRight: 10,
               height: '100%',
               alignItems: 'center',
-              color: colors.brand,
+              color: colors.blue4,
 
               ':focus': {
                 outline: 0,
