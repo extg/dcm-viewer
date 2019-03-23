@@ -3,8 +3,10 @@ import { Normalize, Box } from '@smooth-ui/core-sc'
 
 import Header from './AppHeader'
 
-import logo from './logo.svg';
+import DicomViewer from './DicomViewer'
+// import logo from './logo.svg';
 import './App.css';
+
 
 class App extends Component {
   render() {
@@ -13,7 +15,7 @@ class App extends Component {
         <Normalize/>
         <Header location={window.location}/>
 
-
+        <DicomViewer/>
       </div>
     );
   }
