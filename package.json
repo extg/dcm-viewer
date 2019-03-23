@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@smooth-ui/core-sc": "^10.0.2",
+    "fabric": "^2.7.0",
     "hex2rgba": "^0.0.1",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
