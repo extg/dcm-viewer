@@ -43,10 +43,10 @@ class DicomViewer extends Component {
 
     this.state = {
       filters: {
-        brightness: 50,
-        contrast: 50,
-        grayscale: 0,
-        invert: 0
+        Brightness: 50,
+        Contrast: 50,
+        Grayscale: 0,
+        Invert: 0
       }
     };
   }
@@ -62,29 +62,31 @@ class DicomViewer extends Component {
     this.setState({
       filters: {
         ...this.state.filters,
-        [name]: value
+        [name]: Number(value)
       }
     });
 
-    this.applyFilterValue(name, value);
+    // this.applyFilterValue(name, value);
   };
 
   save = () => {
-    console.log(this.state.filters);
     this.test();
   };
 
   test = () => {
     try {
       const obj = this.canvas.getActiveObject();
-      const filter = new fabric.Image.filters.Brightness({
-        brightness: 0.4
-      });
-      obj.filters[0] = filter;
+      obj.filters = Object.entries(this.state.filters).map(
+        ([name, val]) =>
+          new fabric.Image.filters[name]({
+            [name.toLowerCase()]: Number(val) * 0.01
+          })
+      );
       obj.applyFilters();
+      console.log("filters", obj.filters);
       this.canvas.renderAll();
     } catch (e) {
-      console.log(e.message);
+      // console.log(e.message);
     }
   };
 
