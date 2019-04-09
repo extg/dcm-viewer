@@ -8,22 +8,52 @@ import imgSecond from "../BRAINIX.jpg";
 import { colors, fonts, media } from "../theme";
 import Thumb from "../Thumb";
 
-const Image = styled.img(
-  system({
-    // display: 'none'
-    width: "100%",
-    minHeight: "calc(100% - 147px)",
-    boxShadow: "0px -2px 35px -5px rgba(0,0,0,0.75)",
-    objectFit: "cover"
-  })
-);
+const fabricFilters = fabric.Image.filters;
 
-const Canvas = styled.canvas(
-  system({
-    width: "100%",
-    boxShadow: "0px -2px 35px -5px rgba(0,0,0,0.75)"
-  })
-);
+const filterMap = {
+  Brightness: {
+    min: "-1",
+    max: "1",
+    step: "0.003921"
+  },
+  Contrast: {
+    min: "-1",
+    max: "1",
+    step: "0.003921"
+  },
+  Saturation: {
+    min: "-1",
+    max: "1",
+    step: "0.003921"
+  },
+  Hue: {
+    min: "-2",
+    max: "2",
+    step: "0.002"
+  },
+  Sharpen: {
+    type: "checkbox"
+  }
+};
+
+const getFiltersValues = (name, value) =>
+  console.log("name, value", name, value) ||
+  {
+    Sharpen: new fabricFilters.Convolute({
+      matrix: [1, 1, 1, 1, 0.7, -1, -1, -1, -1]
+    }),
+    Saturation: new fabricFilters.Saturation({
+      saturation: parseFloat(value)
+    }),
+    Brightness: new fabricFilters.Brightness({
+      brightness: parseFloat(value)
+    }),
+    Contrast:
+      value === true &&
+      new fabricFilters.Contrast({
+        contrast: parseFloat(value)
+      })
+  }[name];
 
 const $ = id => document.getElementById(id);
 
@@ -42,12 +72,13 @@ class DicomViewer extends Component {
     super(props);
 
     this.state = {
-      filters: {
-        Brightness: 50,
-        Contrast: 50,
-        Grayscale: 0,
-        Invert: 0
-      }
+      filters: Object.entries(filterMap).reduce(
+        (acc, [name, val]) => ({
+          ...acc,
+          [name]: !val.type ? (Number(val.min) + Number(val.max)) / 2 : false
+        }),
+        {}
+      )
     };
   }
 
@@ -58,15 +89,14 @@ class DicomViewer extends Component {
     this.canvas.renderAll();
   };
 
-  filterOnChange = ({ target: { name, value } }) => {
+  filterOnChange = ({ target: { name, value, checked, type } }) => {
+    console.log(name, value, checked, type);
     this.setState({
       filters: {
         ...this.state.filters,
-        [name]: Number(value)
+        [name]: type === "checkbox" ? checked : Number(value)
       }
     });
-
-    // this.applyFilterValue(name, value);
   };
 
   save = () => {
@@ -74,19 +104,17 @@ class DicomViewer extends Component {
   };
 
   test = () => {
+    const { canvas, state } = this;
     try {
-      const obj = this.canvas.getActiveObject();
-      obj.filters = Object.entries(this.state.filters).map(
-        ([name, val]) =>
-          new fabric.Image.filters[name]({
-            [name.toLowerCase()]: Number(val) * 0.01
-          })
+      const obj = canvas.getActiveObject();
+      obj.filters = Object.entries(state.filters).map(([name, val]) =>
+        getFiltersValues(name, val)
       );
       obj.applyFilters();
       console.log("filters", obj.filters);
-      this.canvas.renderAll();
+      canvas.renderAll();
     } catch (e) {
-      // console.log(e.message);
+      console.warn("У вас ошибОчка", e.message);
     }
   };
 
@@ -108,7 +136,7 @@ class DicomViewer extends Component {
 
   render() {
     const { filters } = this.state;
-
+    console.log(filters);
     return (
       <Grid color={colors.white} p={1}>
         <Button backgroundColor="#61dafb" onClick={this.save}>
@@ -120,18 +148,27 @@ class DicomViewer extends Component {
           </Col>
           <Col sm={2}>
             <Box textAlign="left">
-              {Object.keys(filters).map(filter => (
+              {Object.entries(filters).map(([filter, val]) => (
                 <InputGroup>
                   <label htmlFor={filter}>{filter}</label>
-                  <input
-                    type="range"
-                    id={filter}
-                    name={filter}
-                    min="0"
-                    max="100"
-                    onChange={this.filterOnChange}
-                    value={filters[filter]}
-                  />
+                  {!val.type ? (
+                    <input
+                      type="range"
+                      id={filter}
+                      name={filter}
+                      min="0"
+                      max="100"
+                      onChange={this.filterOnChange}
+                      {...filterMap[filter]}
+                      value={filters[filter]}
+                    />
+                  ) : (
+                    <input
+                      onChange={this.filterOnChange}
+                      type="checkbox"
+                      checked={val.value}
+                    />
+                  )}
                 </InputGroup>
               ))}
             </Box>
