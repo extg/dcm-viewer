@@ -1,32 +1,32 @@
 import React, { Component, Fragment } from "react";
-import styled from "styled-components";
-import system from "@smooth-ui/system";
 import { fabric } from "fabric";
 import { Grid, Row, Col, Box, Button } from "@smooth-ui/core-sc";
-import imgExample from "../mri-scan-of-the-human-brain.jpg";
-import imgSecond from "../BRAINIX.jpg";
+import imgExample from "../BRAINIX.jpg";
 import { colors, fonts, media } from "../theme";
-import Thumb from "../Thumb";
 
 const fabricFilters = fabric.Image.filters;
 
 const filterMap = {
   Brightness: {
+    type: 'range',
     min: "-1",
     max: "1",
     step: "0.003921"
   },
   Contrast: {
+    type: 'range',
     min: "-1",
     max: "1",
     step: "0.003921"
   },
   Saturation: {
+    type: 'range',
     min: "-1",
     max: "1",
     step: "0.003921"
   },
   Hue: {
+    type: 'range',
     min: "-2",
     max: "2",
     step: "0.002"
@@ -37,8 +37,7 @@ const filterMap = {
 };
 
 const getFiltersValues = (name, value) =>
-  console.log("name, value", name, value) ||
-  {
+  ({
     Sharpen: new fabricFilters.Convolute({
       matrix: [1, 1, 1, 1, 0.7, -1, -1, -1, -1]
     }),
@@ -53,19 +52,7 @@ const getFiltersValues = (name, value) =>
       new fabricFilters.Contrast({
         contrast: parseFloat(value)
       })
-  }[name];
-
-const $ = id => document.getElementById(id);
-
-const rand = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-const InputGroup = ({ children }) => {
-  return <Grid>{children}</Grid>;
-};
+  })[name];
 
 class DicomViewer extends Component {
   constructor(props) {
@@ -117,21 +104,17 @@ class DicomViewer extends Component {
       console.warn("У вас ошибОчка", e.message);
     }
   };
-
-  loadImage = (src, callback = img => this.canvas.add(new fabric.Image(img))) =>
-    fabric.util.loadImage(src, callback, this, "Anonymous");
-
+  
   componentDidMount() {
     this.canvas = new fabric.Canvas("canvas");
-    this.loadImage(imgExample);
-    this.loadImage(imgSecond, img =>
-      this.canvas.add(
-        new fabric.Image(img).set({
-          opacity: 0.5,
-          backgroundColor: "palevioletred"
-        })
-      )
-    );
+
+    fabric.util.loadImage(imgExample, img => this.canvas.add(new fabric.Image(img)), this, "Anonymous");
+    fabric.util.loadImage(imgExample, img => this.canvas.add(
+      new fabric.Image(img).set({
+        opacity: 0.5,
+        backgroundColor: "palevioletred"
+      })
+    ), this, "Anonymous");
   }
 
   render() {
@@ -149,7 +132,7 @@ class DicomViewer extends Component {
           <Col sm={2}>
             <Box textAlign="left">
               {Object.entries(filters).map(([filter, val]) => (
-                <InputGroup>
+                <Grid>
                   <label htmlFor={filter}>{filter}</label>
                   {!val.type ? (
                     <input
@@ -169,7 +152,7 @@ class DicomViewer extends Component {
                       checked={val.value}
                     />
                   )}
-                </InputGroup>
+                </Grid>
               ))}
             </Box>
           </Col>
