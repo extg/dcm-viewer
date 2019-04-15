@@ -33,13 +33,6 @@ const AppHeader = ({location}) => (
                 outline: 0,
                 color: colors.white,
               },
-
-              [media.greaterThan('small')]: {
-                width: 'calc(100% / 6)',
-              },
-              [media.lessThan('small')]: {
-                flex: '0 0 auto',
-              },
             }}
             to="/">
             <img src={logoSvg} alt="" height="20" />
@@ -51,21 +44,6 @@ const AppHeader = ({location}) => (
                 fontWeight: 700,
                 fontSize: 20,
                 lineHeight: '20px',
-                [media.lessThan('large')]: {
-                  fontSize: 16,
-                  marginTop: 1,
-                },
-                [media.lessThan('small')]: {
-                  // Visually hidden
-                  position: 'absolute',
-                  overflow: 'hidden',
-                  clip: 'rect(0 0 0 0)',
-                  height: 1,
-                  width: 1,
-                  margin: -1,
-                  padding: 0,
-                  border: 0,
-                },
               }}>
               DICOM
             </Box>
@@ -87,21 +65,6 @@ const AppHeader = ({location}) => (
               // Hide horizontal scrollbar
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
-              '::-webkit-scrollbar': {
-                display: 'none',
-              },
-
-              [media.size('xsmall')]: {
-                flexGrow: '1',
-                width: 'auto',
-              },
-              [media.greaterThan('xlarge')]: {
-                width: null,
-              },
-              [media.lessThan('small')]: {
-                maskImage:
-                  'linear-gradient(to right, transparent, black 20px, black 90%, transparent)',
-              },
             }}>
           </Box>
         </Col>
@@ -135,10 +98,6 @@ const AppHeader = ({location}) => (
                   outline: 0,
                   backgroundColor: colors.lighter,
                   borderRadius: 15,
-                },
-
-                [media.lessThan('medium')]: {
-                  display: 'none',
                 },
               }}
               to="/versions">
