@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Box, Row, Col } from '@smooth-ui/core-sc'
 
-import {colors, fonts, media} from '../theme';
+import {colors, fonts} from '../theme';
 import logoSvg from '../icons/logo.svg';
 import Link from '../Link'
 

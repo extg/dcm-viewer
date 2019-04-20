@@ -5,6 +5,7 @@ import imgExample from "../BRAINIX.jpg";
 import { colors } from "../theme";
 
 const fabricFilters = fabric.Image.filters;
+const f = fabric.Image.filters;
 
 const filterMap = {
   Brightness: {
@@ -13,6 +14,9 @@ const filterMap = {
     max: "1",
     step: "0.003921",
     value: '0',
+    create: value => new f.Brightness({
+      brightness: parseFloat(value),
+    }),
   },
   Contrast: {
     type: 'range',
@@ -20,6 +24,9 @@ const filterMap = {
     max: "1",
     step: "0.003921",
     value: '0',
+    create: value => new f.Contrast({
+      contrast: parseFloat(value),
+    }),
   },
   Saturation: {
     type: 'range',
@@ -27,6 +34,9 @@ const filterMap = {
     max: "1",
     step: "0.003921",
     value: '0',
+    create: value => new f.Saturation({
+      saturation: parseFloat(value),
+    }),
   },
   Hue: {
     type: 'range',
@@ -34,11 +44,28 @@ const filterMap = {
     max: "2",
     step: "0.002",
     value: '0',
+    create: value => new f.HueRotation({
+      rotation: parseFloat(value),
+    }),
   },
   Sharpen: {
-    type: "checkbox"
+    type: "checkbox",
+    create: () => new f.Convolute({
+      matrix: [
+        0, -1,  0,
+        -1,  5, -1,
+        0, -1,  0,
+      ],
+    }),
   }
 };
+
+
+const convertFiltersToArray = filtersObj =>
+  Object.entries(filtersObj).map(([name, {create, value}]) => create(value))
+
+console.log(convertFiltersToArray(filterMap));
+
 
 const getFiltersValues = (name, value) =>
   ({
@@ -70,15 +97,52 @@ class DicomViewer extends Component {
     this.canvas.renderAll();
   };
 
+  applyFilterValue = (index, prop, value) => {
+
+    var obj = this.canvas.getActiveObject();
+    console.log(obj.filters)
+
+    if (obj.filters[index]) {
+      // obj.filters[index][prop] = value;
+      // var timeStart = +new Date();
+      // obj.applyFilters();
+      // var timeEnd = +new Date();
+      // var dimString = canvas.getActiveObject().width + ' x ' +
+      //   canvas.getActiveObject().height;
+      // $('bench').innerHTML = dimString + 'px ' +
+      //   parseFloat(timeEnd-timeStart) + 'ms';
+      // canvas.renderAll();
+    }
+  }
+
   filterOnChange = ({ target: { name, value, checked, type } }) => {
     console.log(name, value, checked, type);
-    // this.setState({
-    //   filters: {
-    //     ...this.state.filters,
-    //     [name]: type === "checkbox" ? checked : Number(value)
-    //   }
-    // });
+
+    filterMap[name].value = value
+
+    const obj = this.canvas.getActiveObject();
+    if (!obj) return
+
+    obj.filters = convertFiltersToArray(filterMap);
+    obj.applyFilters();
+    this.canvas.renderAll();
+
+    this.setState({
+      filters: {
+        ...this.state.filters,
+        [name]: {
+          ...this.state.filters[name],
+          value: type === 'checkbox' ? checked : value,
+        }
+      }
+    });
   };
+
+  reset = () => {
+    this.setState({
+      filters: Object.assign({}, filterMap),
+    });
+  }
 
   save = () => {
     const { canvas, state } = this;
@@ -96,18 +160,26 @@ class DicomViewer extends Component {
   };
 
   componentDidMount() {
-    this.canvas = new fabric.Canvas("canvas");
+    const canvas = new fabric.Canvas("canvas");
+    this.canvas = canvas;
 
-    fabric.util.loadImage(imgExample, img => this.canvas.add(new fabric.Image(img)), this, "Anonymous");
-    fabric.util.loadImage(imgExample, img => this.canvas.add(
-      new fabric.Image(img).set({
+
+    fabric.Image.fromURL(imgExample, function(img) {
+      img.scale(0.8)
+      canvas.add(img);
+    });
+    fabric.Image.fromURL(imgExample, function(img) {
+      img.scale(0.8)
+      img.set({
         opacity: 0.5,
         backgroundColor: "palevioletred"
       })
-    ), this, "Anonymous");
+      canvas.add(img).setActiveObject(img);
+    });
   }
 
   render() {
+    console.log('state', this.state);
     return (
       <Grid color={colors.white} p={1}>
         <Row pt={2}>
@@ -116,7 +188,7 @@ class DicomViewer extends Component {
           </Col>
           <Col sm={2}>
             <Box textAlign="left">
-              {Object.entries(filterMap).map(([name, props]) => (
+              {Object.entries(this.state.filters).map(([name, {create, ...props}]) => (
                 <Grid key={name}>
                   <label htmlFor={name}>{name}</label>
                   <input
@@ -127,9 +199,9 @@ class DicomViewer extends Component {
                 </Grid>
               ))}
               <br/>
-              <Button backgroundColor="#61dafb" onClick={this.save}>
-                Apply
-              </Button>
+              {/*<Button backgroundColor="#61dafb" onClick={this.reset}>*/}
+                {/*Reset*/}
+              {/*</Button>*/}
             </Box>
           </Col>
         </Row>

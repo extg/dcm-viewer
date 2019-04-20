@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Normalize, Box } from '@smooth-ui/core-sc'
+import { Normalize } from '@smooth-ui/core-sc'
 
 import Header from './AppHeader'
 
