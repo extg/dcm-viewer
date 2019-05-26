@@ -1,15 +1,15 @@
 {
-  "main.css": "/static/css/main.42796e93.chunk.css",
-  "main.js": "/static/js/main.41c52fae.chunk.js",
-  "main.js.map": "/static/js/main.41c52fae.chunk.js.map",
-  "runtime~main.js": "/static/js/runtime~main.c5541365.js",
-  "runtime~main.js.map": "/static/js/runtime~main.c5541365.js.map",
-  "static/js/2.6a959de4.chunk.js": "/static/js/2.6a959de4.chunk.js",
-  "static/js/2.6a959de4.chunk.js.map": "/static/js/2.6a959de4.chunk.js.map",
-  "index.html": "/index.html",
-  "precache-manifest.58818ba33031e8875952b68816517f67.js": "/precache-manifest.58818ba33031e8875952b68816517f67.js",
-  "service-worker.js": "/service-worker.js",
-  "static/css/main.42796e93.chunk.css.map": "/static/css/main.42796e93.chunk.css.map",
-  "static/media/BRAINIX.jpg": "/static/media/BRAINIX.19d53eba.jpg",
-  "static/media/logo.svg": "/static/media/logo.85bacfb7.svg"
+  "main.css": "/dcm-viewer/static/css/main.42796e93.chunk.css",
+  "main.js": "/dcm-viewer/static/js/main.5d9e6938.chunk.js",
+  "main.js.map": "/dcm-viewer/static/js/main.5d9e6938.chunk.js.map",
+  "runtime~main.js": "/dcm-viewer/static/js/runtime~main.18923b35.js",
+  "runtime~main.js.map": "/dcm-viewer/static/js/runtime~main.18923b35.js.map",
+  "static/js/2.9f037ac1.chunk.js": "/dcm-viewer/static/js/2.9f037ac1.chunk.js",
+  "static/js/2.9f037ac1.chunk.js.map": "/dcm-viewer/static/js/2.9f037ac1.chunk.js.map",
+  "index.html": "/dcm-viewer/index.html",
+  "precache-manifest.c1d0ffc4568e854e00603ce3b5392659.js": "/dcm-viewer/precache-manifest.c1d0ffc4568e854e00603ce3b5392659.js",
+  "service-worker.js": "/dcm-viewer/service-worker.js",
+  "static/css/main.42796e93.chunk.css.map": "/dcm-viewer/static/css/main.42796e93.chunk.css.map",
+  "static/media/BRAINIX.jpg": "/dcm-viewer/static/media/BRAINIX.19d53eba.jpg",
+  "static/media/logo.svg": "/dcm-viewer/static/media/logo.85bacfb7.svg"
 }
