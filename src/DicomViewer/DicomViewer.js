@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { fabric } from "fabric";
-import { Grid, Row, Col, Box, Button } from "@smooth-ui/core-sc";
+import { Grid, Row, Col, Box } from "@smooth-ui/core-sc";
 import imgExample from "../BRAINIX.jpg";
 import { colors } from "../theme";
 
@@ -62,9 +62,7 @@ const filterMap = {
 
 
 const convertFiltersToArray = filtersObj =>
-  Object.entries(filtersObj).map(([name, {create, value}]) => create(value))
-
-console.log(convertFiltersToArray(filterMap));
+  Object.entries(filtersObj).map(([name, {create, value}]) => value !== false && create(value))
 
 
 const getFiltersValues = (name, value) =>
