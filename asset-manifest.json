@@ -1,15 +1,14 @@
 {
   "main.css": "/dcm-viewer/static/css/main.42796e93.chunk.css",
-  "main.js": "/dcm-viewer/static/js/main.899f288a.chunk.js",
-  "main.js.map": "/dcm-viewer/static/js/main.899f288a.chunk.js.map",
+  "main.js": "/dcm-viewer/static/js/main.6471e54e.chunk.js",
+  "main.js.map": "/dcm-viewer/static/js/main.6471e54e.chunk.js.map",
   "runtime~main.js": "/dcm-viewer/static/js/runtime~main.18923b35.js",
   "runtime~main.js.map": "/dcm-viewer/static/js/runtime~main.18923b35.js.map",
-  "static/js/2.9f037ac1.chunk.js": "/dcm-viewer/static/js/2.9f037ac1.chunk.js",
-  "static/js/2.9f037ac1.chunk.js.map": "/dcm-viewer/static/js/2.9f037ac1.chunk.js.map",
+  "static/js/2.691a3d70.chunk.js": "/dcm-viewer/static/js/2.691a3d70.chunk.js",
+  "static/js/2.691a3d70.chunk.js.map": "/dcm-viewer/static/js/2.691a3d70.chunk.js.map",
   "index.html": "/dcm-viewer/index.html",
-  "precache-manifest.6c49801145129bd5da16e6d484d953d2.js": "/dcm-viewer/precache-manifest.6c49801145129bd5da16e6d484d953d2.js",
+  "precache-manifest.7f6ed746e65d99809b1c46b16ade998a.js": "/dcm-viewer/precache-manifest.7f6ed746e65d99809b1c46b16ade998a.js",
   "service-worker.js": "/dcm-viewer/service-worker.js",
   "static/css/main.42796e93.chunk.css.map": "/dcm-viewer/static/css/main.42796e93.chunk.css.map",
-  "static/media/BRAINIX.jpg": "/dcm-viewer/static/media/BRAINIX.19d53eba.jpg",
   "static/media/logo.svg": "/dcm-viewer/static/media/logo.85bacfb7.svg"
 }
