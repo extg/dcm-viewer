@@ -23,10 +23,29 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>DICOM Viewer</title>
+
+    <style>
+      body {
+        background: dodgerblue;
+      }
+      .cornerstone-wrapper {
+        width: 500px;
+        height: 325px;
+        margin: 35px auto;
+        background: black;
+      }
+      #cornerstone {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <input type="file" id="selectFile" >
+    <div id="dicomImage" style="width:512px;height:512px;top:40px;left:0px; position:absolute"></div>
+
+    <!--<div id="root"></div>-->
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

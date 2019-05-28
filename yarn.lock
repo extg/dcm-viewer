@@ -807,6 +807,13 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-transform-typescript" "^7.1.0"
 
+"@babel/runtime@7.1.2":
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.1.2.tgz#81c89935f4647706fc54541145e6b4ecfef4b8e3"
+  integrity sha512-Y3SCjmhSupzFB6wcv1KmmFucH6gDVnI30WjOcicV10ju0cZjak3Jcs67YLIXBrmZYw1xCrVeJPbycFwrqNyxpg==
+  dependencies:
+    regenerator-runtime "^0.12.0"
+
 "@babel/runtime@7.3.1":
   version "7.3.1"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.3.1.tgz#574b03e8e8a9898eaf4a872a92ea20b7846f6f2a"
@@ -2647,6 +2654,36 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
+cornerstone-core@^2.2.8:
+  version "2.2.8"
+  resolved "https://registry.yarnpkg.com/cornerstone-core/-/cornerstone-core-2.2.8.tgz#5f10c65c80f8efa7623ee1dd5c9a9d4605f5467c"
+  integrity sha512-iJrmfXy1nvM4ZLTJawif2VYBPq8APQ1GYjRbUZAJPNqPYmfYfKWkToVyf9o/i8GMl81op7xLJ4ib3ZMSINKjjQ==
+
+cornerstone-math@^0.1.7:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/cornerstone-math/-/cornerstone-math-0.1.8.tgz#68ab1f9e4fdcd7c5cb23a0d2eb4263f9f894f1c5"
+  integrity sha512-x7NEQHBtVG7j1yeyj/aRoKTpXv1Vh2/H9zNLMyqYJDtJkNng8C4Q8M3CgZ1qer0Yr7eVq2x+Ynmj6kfOm5jXKw==
+
+cornerstone-tools@^3.0.0-b.1720:
+  version "3.0.0-b.1720"
+  resolved "https://registry.yarnpkg.com/cornerstone-tools/-/cornerstone-tools-3.0.0-b.1720.tgz#fbc62bfd0f19b2702ce0e30cec462a076e9a9789"
+  integrity sha512-2hNHH7i1lTthWiMVhaBan3I2P9sjbtIM+pKTqdRWWrhuhNu6ZUnOxZQnv9YaD9EXCgG/Z2g6GZPpgLrc9JIsUw==
+  dependencies:
+    "@babel/runtime" "7.1.2"
+    cornerstone-math "^0.1.7"
+
+cornerstone-wado-image-loader@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/cornerstone-wado-image-loader/-/cornerstone-wado-image-loader-2.2.3.tgz#2d4c06b5c87cd9198b52906c48e2d9dd145de986"
+  integrity sha512-0N5ykSEVoUx3zzfGn5Oaa7OJL/EHOthPUI2Kv8gSnMgf6ipcz5TcK8xGMOfu6grMkKlNb0SFJ/cEqsHR7bddKQ==
+  dependencies:
+    dicom-parser "^1.8.1"
+
+cornerstone-web-image-loader@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/cornerstone-web-image-loader/-/cornerstone-web-image-loader-2.1.1.tgz#531262668d3b44fb461161c67d58ebcaefbae73d"
+  integrity sha512-EYT7nLyXMFDeCCQhDkf6czFUm58EgqiTX+tOOLt79gPvbNRdEvPgQoXJgXOd5/3Xuc5QNqzTyOzYtf1v/KH0aA==
+
 cosmiconfig@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-4.0.0.tgz#760391549580bbd2df1e562bc177b13c290972dc"
@@ -3179,6 +3216,11 @@ detect-port-alt@1.1.6:
   dependencies:
     address "^1.0.1"
     debug "^2.6.0"
+
+dicom-parser@^1.8.1, dicom-parser@^1.8.3:
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/dicom-parser/-/dicom-parser-1.8.3.tgz#6e4b862898112304db30143147562011c1ce6a4d"
+  integrity sha512-CMeUr+jea7Ml70N+/Z5Pd2MYtvLp6IU+TnvdLe6VRVKzZuTeYLYyuAQa9R+sFK4v4N39hig+hKHN+Wfi9sQ6GA==
 
 diff@^3.2.0:
   version "3.5.0"
@@ -4427,6 +4469,11 @@ gzip-size@5.0.0:
   dependencies:
     duplexer "^0.1.1"
     pify "^3.0.0"
+
+hammerjs@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
+  integrity sha1-BO93hiz/K7edMPdpIJWTAiK/YPE=
 
 handle-thing@^2.0.0:
   version "2.0.0"
@@ -7009,7 +7056,7 @@ p-try@^2.0.0:
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-2.0.0.tgz#85080bb87c64688fa47996fe8f7dfbe8211760b1"
   integrity sha512-hMp0onDKIajHfIkdRk3P4CdCmErkYAxxDtP3Wx/4nZ3aGlau2VKh3mZpcuFkH27WQkL/3WBCPOktzA9ZOAnMQQ==
 
-pako@~1.0.5:
+pako@^1.0.10, pako@~1.0.5:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.10.tgz#4328badb5086a426aa90f541977d4955da5c9732"
   integrity sha512-0DTvPVU3ed8+HNXOu5Bs+o//Mbdj9VNQMUOe9oKCwh8l0GNwpTDMKCWbRjgtD291AWnkAgkqA/LOnQS8AmS1tw==

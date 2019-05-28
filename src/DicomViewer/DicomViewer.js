@@ -4,66 +4,75 @@ import { Grid, Row, Col, Box } from "@smooth-ui/core-sc";
 import imgExample from "../BRAINIX.jpg";
 import { colors } from "../theme";
 
+// import * as cornerstone from "cornerstone-core";
+// // import * as cornerstoneWebImageLoader from "cornerstone-web-image-loader";
+// import * as cornerstoneWADOImageLoader from "cornerstone-wado-image-loader";
+// import * as dicomParser from "dicom-parser";
+// import * as pako from "pako";
+
+
 const fabricFilters = fabric.Image.filters;
 const f = fabric.Image.filters;
 
 const filterMap = {
   Brightness: {
-    type: 'range',
+    type: "range",
     min: "-1",
     max: "1",
     step: "0.003921",
-    value: '0',
-    create: value => new f.Brightness({
-      brightness: parseFloat(value),
-    }),
+    value: "0",
+    create: value =>
+      new f.Brightness({
+        brightness: parseFloat(value)
+      })
   },
   Contrast: {
-    type: 'range',
+    type: "range",
     min: "-1",
     max: "1",
     step: "0.003921",
-    value: '0',
-    create: value => new f.Contrast({
-      contrast: parseFloat(value),
-    }),
+    value: "0",
+    create: value =>
+      new f.Contrast({
+        contrast: parseFloat(value)
+      })
   },
   Saturation: {
-    type: 'range',
+    type: "range",
     min: "-1",
     max: "1",
     step: "0.003921",
-    value: '0',
-    create: value => new f.Saturation({
-      saturation: parseFloat(value),
-    }),
+    value: "0",
+    create: value =>
+      new f.Saturation({
+        saturation: parseFloat(value)
+      })
   },
   Hue: {
-    type: 'range',
+    type: "range",
     min: "-2",
     max: "2",
     step: "0.002",
-    value: '0',
-    create: value => new f.HueRotation({
-      rotation: parseFloat(value),
-    }),
+    value: "0",
+    create: value =>
+      new f.HueRotation({
+        rotation: parseFloat(value)
+      })
   },
   Sharpen: {
     type: "checkbox",
-    create: () => new f.Convolute({
-      matrix: [
-        0, -1,  0,
-        -1,  5, -1,
-        0, -1,  0,
-      ],
-    }),
+    create: () =>
+      new f.Convolute({
+        matrix: [0, -1, 0, -1, 5, -1, 0, -1, 0]
+      })
   }
 };
 
 
 const convertFiltersToArray = filtersObj =>
-  Object.entries(filtersObj).map(([name, {create, value}]) => value !== false && create(value))
-
+  Object.entries(filtersObj).map(
+    ([name, { create, value }]) => value !== false && create(value)
+  );
 
 const getFiltersValues = (name, value) =>
   ({
@@ -81,12 +90,12 @@ const getFiltersValues = (name, value) =>
       new fabricFilters.Contrast({
         contrast: parseFloat(value)
       })
-  })[name];
+  }[name]);
 
 class DicomViewer extends Component {
   state = {
-    filters: filterMap,
-  }
+    filters: filterMap
+  };
 
   applyFilter = (index, filter) => {
     let obj = this.canvas.getActiveObject();
@@ -96,9 +105,8 @@ class DicomViewer extends Component {
   };
 
   applyFilterValue = (index, prop, value) => {
-
     var obj = this.canvas.getActiveObject();
-    console.log(obj.filters)
+    console.log(obj.filters);
 
     if (obj.filters[index]) {
       // obj.filters[index][prop] = value;
@@ -111,15 +119,15 @@ class DicomViewer extends Component {
       //   parseFloat(timeEnd-timeStart) + 'ms';
       // canvas.renderAll();
     }
-  }
+  };
 
   filterOnChange = ({ target: { name, value, checked, type } }) => {
     console.log(name, value, checked, type);
 
-    filterMap[name].value = value
+    filterMap[name].value = value;
 
     const obj = this.canvas.getActiveObject();
-    if (!obj) return
+    if (!obj) return;
 
     obj.filters = convertFiltersToArray(filterMap);
     obj.applyFilters();
@@ -130,7 +138,7 @@ class DicomViewer extends Component {
         ...this.state.filters,
         [name]: {
           ...this.state.filters[name],
-          value: type === 'checkbox' ? checked : value,
+          value: type === "checkbox" ? checked : value
         }
       }
     });
@@ -138,9 +146,9 @@ class DicomViewer extends Component {
 
   reset = () => {
     this.setState({
-      filters: Object.assign({}, filterMap),
+      filters: Object.assign({}, filterMap)
     });
-  }
+  };
 
   save = () => {
     const { canvas, state } = this;
@@ -161,23 +169,42 @@ class DicomViewer extends Component {
     const canvas = new fabric.Canvas("canvas");
     this.canvas = canvas;
 
-
     fabric.Image.fromURL(imgExample, function(img) {
-      img.scale(0.8)
+      img.scale(0.8);
       canvas.add(img);
     });
     fabric.Image.fromURL(imgExample, function(img) {
-      img.scale(0.8)
+      img.scale(0.8);
       img.set({
         opacity: 0.5,
         backgroundColor: "palevioletred"
-      })
+      });
       canvas.add(img).setActiveObject(img);
     });
   }
 
+  onInputInsert = e => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    const imageId = cornerstoneWADOImageLoader.wadouri.fileManager.add(file);
+    console.log(imageId)
+    cornerstone.loadImage(imageId).then(function(image) {
+      console.log(image);
+    })
+
+    //
+    // cornerstone
+    //   .loadImage(imageId)
+    //   .then(
+    //     legitImage =>
+    //       console.log(legitImage) ||
+    //       fabric.Image.fromObject(legitImage, console.log)
+    //   )
+    //   .catch(console.error);
+  };
+
   render() {
-    console.log('state', this.state);
+    console.log("state", this.state);
     return (
       <Grid color={colors.white} p={1}>
         <Row pt={2}>
@@ -186,21 +213,26 @@ class DicomViewer extends Component {
           </Col>
           <Col sm={2}>
             <Box textAlign="left">
-              {Object.entries(this.state.filters).map(([name, {create, ...props}]) => (
-                <Grid key={name}>
-                  <label htmlFor={name}>{name}</label>
-                  <input
-                    {...props}
-                    name={name}
-                    onChange={this.filterOnChange}
-                  />
-                </Grid>
-              ))}
-              <br/>
+              {Object.entries(this.state.filters).map(
+                ([name, { create, ...props }]) => (
+                  <Grid key={name}>
+                    <label htmlFor={name}>{name}</label>
+                    <input
+                      {...props}
+                      name={name}
+                      onChange={this.filterOnChange}
+                    />
+                  </Grid>
+                )
+              )}
+              <br />
               {/*<Button backgroundColor="#61dafb" onClick={this.reset}>*/}
-                {/*Reset*/}
+              {/*Reset*/}
               {/*</Button>*/}
             </Box>
+          </Col>
+          <Col>
+            <input type="file" onChange={this.onInputInsert} />
           </Col>
         </Row>
       </Grid>
