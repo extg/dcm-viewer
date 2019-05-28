@@ -4,13 +4,6 @@ import { Grid, Row, Col, Box } from "@smooth-ui/core-sc";
 import imgExample from "../BRAINIX.jpg";
 import { colors } from "../theme";
 
-// import * as cornerstone from "cornerstone-core";
-// // import * as cornerstoneWebImageLoader from "cornerstone-web-image-loader";
-// import * as cornerstoneWADOImageLoader from "cornerstone-wado-image-loader";
-// import * as dicomParser from "dicom-parser";
-// import * as pako from "pako";
-
-
 const fabricFilters = fabric.Image.filters;
 const f = fabric.Image.filters;
 
@@ -183,32 +176,12 @@ class DicomViewer extends Component {
     });
   }
 
-  onInputInsert = e => {
-    e.preventDefault();
-    const file = e.target.files[0];
-    const imageId = cornerstoneWADOImageLoader.wadouri.fileManager.add(file);
-    console.log(imageId)
-    cornerstone.loadImage(imageId).then(function(image) {
-      console.log(image);
-    })
-
-    //
-    // cornerstone
-    //   .loadImage(imageId)
-    //   .then(
-    //     legitImage =>
-    //       console.log(legitImage) ||
-    //       fabric.Image.fromObject(legitImage, console.log)
-    //   )
-    //   .catch(console.error);
-  };
-
   render() {
     console.log("state", this.state);
     return (
       <Grid color={colors.white} p={1}>
         <Row pt={2}>
-          <Col sm={10}>
+          <Col sm={6}>
             <canvas width="950" height="800" id="canvas" />
           </Col>
           <Col sm={2}>
@@ -225,13 +198,9 @@ class DicomViewer extends Component {
                   </Grid>
                 )
               )}
-              <br />
-              {/*<Button backgroundColor="#61dafb" onClick={this.reset}>*/}
-              {/*Reset*/}
-              {/*</Button>*/}
             </Box>
           </Col>
-          <Col>
+          <Col sm={2}>
             <input type="file" onChange={this.onInputInsert} />
           </Col>
         </Row>
