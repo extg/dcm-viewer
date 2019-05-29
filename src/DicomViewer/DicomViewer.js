@@ -175,6 +175,14 @@ class DicomViewer extends Component {
       canvas.add(img).setActiveObject(img);
     });
   }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log(this.props.image)
+    this.props.image && fabric.Image.fromObject(this.props.image, (img) => {
+      console.log(img)
+      img.scale(0.8);
+      this.canvas.add(img);
+    });
+  }
 
   render() {
     console.log("state", this.state);
@@ -200,9 +208,9 @@ class DicomViewer extends Component {
               )}
             </Box>
           </Col>
-          <Col sm={2}>
-            <input type="file" onChange={this.onInputInsert} />
-          </Col>
+          {/*<Col sm={2}>*/}
+            {/*<input type="file" onChange={this.onInputInsert} />*/}
+          {/*</Col>*/}
         </Row>
       </Grid>
     );

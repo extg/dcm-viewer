@@ -5,6 +5,7 @@ import * as cornerstoneMath from 'cornerstone-math';
 import * as cornerstoneTools from 'cornerstone-tools';
 import * as cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader'
 import * as dicomParser from 'dicom-parser'
+import DicomViewer from './DicomViewer'
 
 /*
 // Тут можно посмотреть АПИ :)
@@ -38,7 +39,7 @@ const loadImage = file => cornerstone.loadImage(
 
 class Cornerstone extends Component {
   loaded = false;
-
+  state = { image: null }
   constructor(props) {
     super(props)
 
@@ -55,7 +56,7 @@ class Cornerstone extends Component {
     loadImage(e.target.files[0]).then((image) => {
       console.log(image);
       const viewport = cornerstone.getDefaultViewportForImage(this.element.current, image);
-
+      this.setState({image})
       cornerstone.displayImage(this.element.current, image, viewport);
       if(this.loaded === false) {
         // cornerstoneTools.mouseInput.enable(this.element.current);
@@ -75,6 +76,7 @@ class Cornerstone extends Component {
     return (
       <div>
         <input type="file" onChange={this.onInputInsert} />
+        <DicomViewer image={this.state.image}/>
         <div ref={this.element}></div>
       </div>
     );
